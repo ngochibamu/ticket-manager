@@ -9,12 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import java.lang.Override;
 
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"name","venue_id"}))
 public class Section implements Serializable {
 
 	@Id
@@ -28,6 +31,20 @@ public class Section implements Serializable {
 	@ManyToOne
 	@NotNull
 	private Venue venue;
+
+	@Column
+	@NotNull
+	private String name;
+
+	@Column
+	@NotNull
+	private String description;
+
+	@Column
+	private int numberOfRows;
+
+	@Column
+	private int rowCapacity;
 
 	public Long getId() {
 		return this.id;
@@ -53,36 +70,69 @@ public class Section implements Serializable {
 		this.venue = venue;
 	}
 
-	@Override
-	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		if (id != null)
-			result += "id: " + id;
-		return result;
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(final String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(final String description) {
+		this.description = description;
+	}
+
+	public int getNumberOfRows() {
+		return this.numberOfRows;
+	}
+
+	public void setNumberOfRows(final int numberOfRows) {
+		this.numberOfRows = numberOfRows;
+	}
+
+	public int getRowCapacity() {
+		return this.rowCapacity;
+	}
+
+	public void setRowCapacity(final int rowCapacity) {
+		this.rowCapacity = rowCapacity;
 	}
 
 	@Override
-	public boolean equals(Object that) {
-		if (this == that) {
+	public boolean equals(Object o) {
+		if (this == o)
 			return true;
-		}
-		if (that == null) {
+		if (o == null || getClass() != o.getClass())
 			return false;
-		}
-		if (getClass() != that.getClass()) {
+		Section section = (Section) o;
+		if (venue != null ? !venue.equals(section.venue)
+				: section.venue != null)
 			return false;
-		}
-		if (id != null) {
-			return id.equals(((Section) that).id);
-		}
-		return super.equals(that);
+		if (name != null ? !name.equals(section.name) : section.name != null)
+			return false;
+		return true;
 	}
 
 	@Override
 	public int hashCode() {
-		if (id != null) {
-			return id.hashCode();
-		}
-		return super.hashCode();
+		int result = name != null ? name.hashCode() : 0;
+		result = 31 * result + (venue != null ? venue.hashCode() : 0);
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		String result = getClass().getSimpleName() + " ";
+		if (name != null && !name.trim().isEmpty())
+			result += "name: " + name;
+		if (description != null && !description.trim().isEmpty())
+			result += ", description: " + description;
+		result += ", numberOfRows: " + numberOfRows;
+		result += ", rowCapacity: " + rowCapacity;
+		return result;
 	}
 }
