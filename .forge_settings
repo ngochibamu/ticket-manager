@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
-<rootpath>"/rest"</rootpath>
+<rootpath>/rest</rootpath>
 <rest>
 <applicationclass>
 <package>org.chibamu.apps.ticketmanager.rest</package>
-<name>/home/ngoni/projects/ticket-manager/src/main/java/org/chibamu/apps/ticketmanager/rest/JaxRsActivator.java</name>
+<name>JaxRsActivator</name>
 </applicationclass>
 </rest>
 </configuration>
