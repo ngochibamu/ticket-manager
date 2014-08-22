@@ -15,11 +15,14 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.enterprise.context.RequestScoped;
+
 import org.chibamu.apps.ticketmanager.model.MediaItem;
 import org.chibamu.apps.ticketmanager.model.MediaType;
 import org.chibamu.apps.ticketmanager.util.Base64;
 import org.chibamu.apps.ticketmanager.util.Reflections;
 
+@RequestScoped
 public class MediaManager {
 	private static final File tmpDir;
 	/**
