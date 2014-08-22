@@ -15,6 +15,7 @@ import javax.persistence.Version;
 import java.lang.Override;
 
 import org.chibamu.apps.ticketmanager.model.MediaType;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 public class MediaItem implements Serializable
@@ -30,6 +31,10 @@ public class MediaItem implements Serializable
 
    @Enumerated(EnumType.STRING)
    private MediaType mediaType;
+
+   @Column(unique = true)
+   @URL
+   private String url;
 
    public Long getId()
    {
@@ -91,5 +96,24 @@ public class MediaItem implements Serializable
    public void setMediaType(final MediaType mediaType)
    {
       this.mediaType = mediaType;
+   }
+
+   public String getUrl()
+   {
+      return this.url;
+   }
+
+   public void setUrl(final String url)
+   {
+      this.url = url;
+   }
+
+   @Override
+   public String toString()
+   {
+      String result = getClass().getSimpleName() + " ";
+      if (url != null && !url.trim().isEmpty())
+         result += "url: " + url;
+      return result;
    }
 }
